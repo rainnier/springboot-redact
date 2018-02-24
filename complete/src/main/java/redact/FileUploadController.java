@@ -102,12 +102,12 @@ public class FileUploadController {
         return ResponseEntity.notFound().build();
     }
 
-    public File redactPdf(File file) throws IOException { 
+    public File redactPdf(File file) throws IOException {
 
         String current = new java.io.File( "." ).getCanonicalPath();
         System.out.println("Current dir:"+current);
 
-        //Load the license file to use cleanup features
+        //Load the license file to use cleanup features 
         LicenseKey.loadLicenseFile("itextkey1519348717848_0.xml");
 
         File outFile = new File(file.getPath()+"-redact.pdf");
