@@ -1,4 +1,4 @@
-package hello.storage;
+package redact.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

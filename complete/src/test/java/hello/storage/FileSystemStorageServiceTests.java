@@ -22,6 +22,9 @@ import org.junit.Test;
 
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import redact.storage.FileSystemStorageService;
+import redact.storage.StorageException;
+import redact.storage.StorageProperties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

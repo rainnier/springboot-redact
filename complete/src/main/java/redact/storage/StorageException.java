@@ -1,4 +1,4 @@
-package hello.storage;
+package redact.storage;
 
 public class StorageException extends RuntimeException {
 
