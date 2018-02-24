@@ -108,7 +108,7 @@ public class FileUploadController {
         System.out.println("Current dir:"+current);
 
         //Load the license file to use cleanup features
-        LicenseKey.loadLicenseFile("itextkey1519348717848_0.xml");
+        LicenseKey.loadLicenseFile("complete/xml/itextkey1519348717848_0.xml");
 
         File outFile = new File(file.getPath()+"-redact.pdf");
         PdfDocument pdfDoc = new PdfDocument(new PdfReader(file), new PdfWriter(outFile));
