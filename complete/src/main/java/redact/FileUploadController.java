@@ -102,7 +102,7 @@ public class FileUploadController {
         return ResponseEntity.notFound().build();
     }
 
-    public File redactPdf(File file) throws IOException { 
+    public File redactPdf(File file) throws IOException {
 
         String current = new java.io.File( "." ).getCanonicalPath();
         System.out.println("Current dir:"+current);
