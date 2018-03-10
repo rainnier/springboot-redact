@@ -74,13 +74,9 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        //File convFile = new File( file.getOriginalFilename());
-        //file.transferTo(convFile);
-
         Resource fileResource = storageService.loadAsResource(file.getOriginalFilename());
 
         File redactFile = redactPdf(fileResource.getFile());
-        //return "redirect:/";
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -115,37 +111,38 @@ public class FileUploadController {
         List<PdfCleanUpLocation> cleanUpLocations = new ArrayList<PdfCleanUpLocation>();
         com.itextpdf.kernel.colors.Color myColor = new DeviceRgb(0, 0, 0);
 
-        //cleanUpLocations.add(new PdfCleanUpLocation(1, new Rectangle(97, 405, 383, 40), myColor));
-
-        // Business Address: No. Street City / Town Province - page 2
-        cleanUpLocations.add(new PdfCleanUpLocation(2, new Rectangle(65, 647, 465, 16), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(2, new Rectangle(65, 630, 465, 16), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(2, new Rectangle(65, 610, 465, 16), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(2, new Rectangle(65, 592, 465, 16), myColor));
+        int numberOfPages = pdfDoc.getNumberOfPages();
+        
+        if(numberOfPages == 12) {
+	        // Business Address: No. Street City / Town Province - page 2
+	        cleanUpLocations.add(new PdfCleanUpLocation(2, new Rectangle(65, 647, 465, 16), myColor));
+	        cleanUpLocations.add(new PdfCleanUpLocation(2, new Rectangle(65, 630, 465, 16), myColor));
+	        cleanUpLocations.add(new PdfCleanUpLocation(2, new Rectangle(65, 610, 465, 16), myColor));
+	        cleanUpLocations.add(new PdfCleanUpLocation(2, new Rectangle(65, 592, 465, 16), myColor));
+        }
 
         // COMPLETE PRINCIPAL OFFICE ADDRESS - page 3
-        cleanUpLocations.add(new PdfCleanUpLocation(3, new Rectangle(102, 381, 372, 21), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages - 9, new Rectangle(102, 381, 372, 21), myColor));
 
         // COMPLETE BUSINESS ADDRESS - page 3
-        cleanUpLocations.add(new PdfCleanUpLocation(3, new Rectangle(102, 350, 372, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages - 9, new Rectangle(102, 350, 372, 23), myColor));
 
         // COMPLETE BUSINESS ADDRESS - last page
-        int lastPage = pdfDoc.getNumberOfPages();
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 648, 184, 20), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 619, 184, 20), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 590, 184, 20), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 558, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 525, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 492, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 455, 184, 25), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 422, 184, 25), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 389, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 358, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 330, 184, 18), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 302, 184, 18), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 267, 184, 25), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 240, 184, 19), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 210, 184, 20), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 648, 184, 20), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 619, 184, 20), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 590, 184, 20), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 558, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 525, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 492, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 455, 184, 25), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 422, 184, 25), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 389, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 358, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 330, 184, 18), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 302, 184, 18), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 267, 184, 25), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 240, 184, 19), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(numberOfPages, new Rectangle(70, 210, 184, 20), myColor));
 
         PdfCleanUpTool cleaner = new PdfCleanUpTool(pdfDoc, cleanUpLocations);
         cleaner.cleanUp();
