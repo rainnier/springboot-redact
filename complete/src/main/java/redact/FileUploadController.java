@@ -108,7 +108,7 @@ public class FileUploadController {
         System.out.println("Current dir:"+current);
 
         //Load the license file to use cleanup features
-        LicenseKey.loadLicenseFile("complete/xml/itextkey1519348717848_0.xml");
+        LicenseKey.loadLicenseFile("xml/itextkey1519348717848_0.xml");
 
         File outFile = new File(file.getPath()+"-redact.pdf");
         PdfDocument pdfDoc = new PdfDocument(new PdfReader(file), new PdfWriter(outFile));
@@ -129,22 +129,23 @@ public class FileUploadController {
         // COMPLETE BUSINESS ADDRESS - page 3
         cleanUpLocations.add(new PdfCleanUpLocation(3, new Rectangle(102, 350, 372, 23), myColor));
 
-        // COMPLETE BUSINESS ADDRESS - page 3
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 648, 184, 20), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 619, 184, 20), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 590, 184, 20), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 558, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 525, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 492, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 455, 184, 25), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 422, 184, 25), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 389, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 358, 184, 23), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 330, 184, 18), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 302, 184, 18), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 267, 184, 25), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 240, 184, 19), myColor));
-        cleanUpLocations.add(new PdfCleanUpLocation(12, new Rectangle(70, 210, 184, 20), myColor));
+        // COMPLETE BUSINESS ADDRESS - last page
+        int lastPage = pdfDoc.getNumberOfPages();
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 648, 184, 20), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 619, 184, 20), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 590, 184, 20), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 558, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 525, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 492, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 455, 184, 25), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 422, 184, 25), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 389, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 358, 184, 23), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 330, 184, 18), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 302, 184, 18), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 267, 184, 25), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 240, 184, 19), myColor));
+        cleanUpLocations.add(new PdfCleanUpLocation(lastPage, new Rectangle(70, 210, 184, 20), myColor));
 
         PdfCleanUpTool cleaner = new PdfCleanUpTool(pdfDoc, cleanUpLocations);
         cleaner.cleanUp();
